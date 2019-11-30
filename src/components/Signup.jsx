@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from "axios";
+import UploadImage from './UploadImage';
+import DropZone from './DropZone';
 
 class Signup extends Component {
   constructor(props) {
@@ -132,6 +134,7 @@ class Signup extends Component {
                 className="email form-control"
               ></input>
             </div>
+            <UploadImage />
             <div className="form-group">
               <label> Postcode </label>
               <input
