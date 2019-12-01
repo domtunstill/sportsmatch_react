@@ -9,7 +9,8 @@ class DisplayMessages extends React.Component {
     this.state = {
       game_id: props.match.params.id,
       messageSent: false,
-      messageData: []
+      messageData: [],
+      messageDetails: []
     }
   }
 
@@ -27,9 +28,10 @@ class DisplayMessages extends React.Component {
       }
     })
     .then(function(response) {
-      console.log(response.data)
+      let details = response.data.pop()
       self.setState({
-        messageData: response.data
+        messageData: response.data,
+        messageDetails: details
       })
     })
     .catch(function(error) {
@@ -49,20 +51,38 @@ class DisplayMessages extends React.Component {
     })
   }
 
+  showOtherUserName() {
+    if (this.state.messageDetails.organiser_id === parseInt(localStorage.getItem('user_id'))) {
+      return this.state.messageDetails.opponent
+    } else {
+      return this.state.messageDetails.organiser
+    }
+  }
+
   render() {
     return (
       <div>
+      <h3 style={{textAlign: 'center'}}>{this.showOtherUserName()}</h3>
+      <ul className="list-group list-group-flush">
         {this.state.messageData.map((message) => (
           <SingleMessage
             key={message.id}
             id={message.id}
             game_id={message.game_id}
             sender_id={message.sender_id}
-            receiver_id={message.receiver_id}
+            organiser_id={message.organiser_id}
+            opponent_id={message.opponent_id}
             content={message.content}
+            organiser={this.state.messageDetails.organiser}
+            opponent={this.state.messageDetails.opponent}
           />
         ))}
-        <CreateMessage id={this.state.game_id}/>
+        </ul>
+        <CreateMessage
+          id={this.state.game_id}
+          organiser_id={this.state.messageDetails.organiser_id}
+          opponent_id={this.state.messageDetails.opponent_id}
+        />
       </div>
     )
   }
