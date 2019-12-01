@@ -8,6 +8,8 @@ class DisplayMessages extends React.Component {
     super(props)
     this.state = {
       game_id: props.match.params.id,
+      organiser_id: props.match.params.organiser_id,
+      opponent_id: props.match.params.opponent_id,
       messageSent: false,
       messageData: [],
       messageDetails: []
@@ -80,8 +82,8 @@ class DisplayMessages extends React.Component {
         </ul>
         <CreateMessage
           id={this.state.game_id}
-          organiser_id={this.state.messageDetails.organiser_id}
-          opponent_id={this.state.messageDetails.opponent_id}
+          organiser_id={this.state.organiser_id}
+          opponent_id={this.state.opponent_id}
         />
       </div>
     )

@@ -24,9 +24,6 @@ class CreateMessage extends React.Component {
         content: document.getElementById("content-input").value
       }
     })
-    .then(function(response) {
-      console.log(response)
-    })
     .then(function() {
       self.props.handleSubmitMessage()
     })
