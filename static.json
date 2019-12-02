@@ -6,7 +6,7 @@
     "https_only": true,
     "proxies": {
       "/api/": {
-        "origin": "https://sportsmatch-api.herokuapp.com/"
+        "origin": "${API_URL}"
       }
     }
   }
