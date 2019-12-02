@@ -51,7 +51,7 @@ class Home extends Component {
   getLoggedInPlayerInfo() {
     let self = this;
     axios({
-      url: `/v1/players/${localStorage.getItem('user_id')}`,
+      url: `v1/players/${localStorage.getItem('user_id')}`,
       headers: {
         "Content-Type": "application/json",
         "api-token": localStorage.getItem('jwtToken')

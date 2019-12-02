@@ -15,7 +15,7 @@ class Login extends Component {
     e.preventDefault();
     let self = this;
     axios
-      .post("/v1/players/login", {
+      .post("v1/players/login", {
           email: document.getElementById("email-input").value,
           password: document.getElementById("password-input").value
       })

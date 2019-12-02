@@ -38,7 +38,7 @@ class Signup extends Component {
     if (password === password_confirm) {
       let self = this;
       axios
-        .post("/v1/players/new", {
+        .post("v1/players/new", {
             email: document.getElementById("email-input").value,
             password: document.getElementById("password-input").value,
             first_name: document.getElementById("first-name-input").value,
