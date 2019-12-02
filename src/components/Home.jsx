@@ -70,7 +70,7 @@ class Home extends Component {
   getPlayers() {
     let self = this;
     axios({
-        url: "/api/api/v1/players",
+        url: "/api/v1/players",
         headers: {
           "Content-Type": "application/json",
           "api-token": localStorage.getItem('jwtToken'),
