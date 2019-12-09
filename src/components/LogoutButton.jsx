@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
+import styles from './css/Navbar.module.css'
 
 class LogoutButton extends React.Component {
   constructor(props) {
@@ -8,15 +9,13 @@ class LogoutButton extends React.Component {
   }
 
   handleClick() {
+    this.props.handleLoggedInState()
     localStorage.clear()
-    this.props.history.push('/login');
   }
 
   render() {
     return(
-      <div>
-        <Link onClick={this.handleClick}>Logout</Link>
-      </div>
+      <Link onClick={this.handleClick} to={'/'}><button className={styles.button}>Logout</button></Link>
     )
   }
 }

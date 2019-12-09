@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom';
 import axios from "axios";
-import SearchBar from './SearchBar';
+import FilterBar from './FilterBar';
 import Player from './Player';
+import Login from './Login'
+import styles from './css/Home.module.css'
 
 class Home extends Component {
   constructor(props) {
@@ -10,12 +11,12 @@ class Home extends Component {
     this.state = {
       players: [],
       distance: 5,
-      ability: "Beginner",
-      age_group: "16 - 19"
+      ability: 'Beginner',
+      sport: ''
     };
     this.getPlayers = this.getPlayers.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.updateDistance = this.updateDistance.bind(this);
   }
 
   componentDidMount() {
@@ -24,10 +25,10 @@ class Home extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.ability !== prevState.ability) {
-      this.getPlayers()
-    }
-    if (this.state.distance !== prevState.distance) {
+    if (
+      this.state.ability !== prevState.ability ||
+      this.state.distance !== prevState.distance
+    ) {
       this.getPlayers()
     }
   };
@@ -37,15 +38,9 @@ class Home extends Component {
     this.setState({
       [name]: value
     })
-    console.log(this.state.ability)
-  } 
-
-  handleClick(event) {
-    console.log(event.target.value)
-    let prev_distance = this.state.distance
-    this.setState({
-      distance: prev_distance + parseInt(event.target.value)
-    })
+  }
+  updateDistance = (distance) => {
+    this.setState({distance: distance})
   }
 
   getLoggedInPlayerInfo() {
@@ -59,7 +54,7 @@ class Home extends Component {
     })
       .then(function(response) {
         self.setState({
-          ability: response.data.ability
+          ability: response.data.ability,
         })
       })
       .catch(function(error) {
@@ -75,7 +70,7 @@ class Home extends Component {
           "Content-Type": "application/json",
           "api-token": localStorage.getItem('jwtToken'),
           "ability": this.state.ability,
-          "distance": this.state.distance
+          "distance": this.state.distance,
         },
       })
       .then(function(response) {
@@ -89,33 +84,42 @@ class Home extends Component {
   render() {
       if (localStorage.getItem('jwtToken')) {
         return (
-          <div>
             <div>
-              <SearchBar
-                  distance={this.state.distance}
-                  ability={this.state.ability}
-                  handleChange={this.handleChange}
-                  handleClick={this.handleClick}
-              />
-            </div>
-            <p>{this.state.ability} - {this.state.age_group} - {this.state.distance}</p>
-            <div>
+              <div className={styles.topDiv}>
+                <div className={`container ${styles.myContainer}`}>
+                  <h2 className={styles.heading}>Find your next opponent here!</h2>
+                  <div>
+                    <FilterBar
+                        distance={this.state.distance}
+                        ability={this.state.ability}
+                        handleChange={this.handleChange}
+                        updateDistance={this.updateDistance}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className={`row ${styles.row}`}>
               {this.state.players.map(player => (
+                <div class="col-sm-6 col-md-4 col-lg-3">
                 <Player
                   key={player.id}
                   id={player.id}
                   firstName={player.first_name}
                   ability={player.ability}
+                  rank_points={player.rank_points}
                   gender={player.gender}
+                  bio={player.bio}
+                  sport={player.sport}
                 />
+                </div>
               ))}
             </div>
-          </div>
+            </div>
         )
       } else {
         return(
           <div>
-            <Redirect to='/login' />
+            <Login handleLogIn={this.props.handleLoggedInState}/>
           </div>
         )
       }

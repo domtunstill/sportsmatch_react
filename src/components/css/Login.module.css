@@ -1,0 +1,66 @@
+.mainLogo {
+  margin-left: 15px
+}
+
+.heading {
+  margin-top: 25px;
+  margin-bottom:25px;
+  margin-left: 15px;
+  font-weight: bold;
+  color: grey;
+}
+
+.inputField {
+  margin-top: 25px;
+  margin-left: 15px;
+  /* margin-bottom: 20px; */
+  width: 90%;
+  font-size: 15px;
+  height: 50px;
+}
+
+.inputField:active,
+.inputField:focus,
+.inputField:hover {
+  background-color: white
+}
+
+.inputField::placeholder {
+  font-size: 20px;
+}
+
+.myRow {
+  height: 800px;
+  padding-top: 100px
+}
+
+.leftCol {
+  background-color: white;
+  padding: 30px;
+
+  position: relative;
+}
+
+.myFormContainer{
+  margin-top: 25%;
+}
+
+.box:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.4);
+}
+
+.loginButton:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.4);
+}
+
+.loginButton {
+  margin-top: 30px;
+  box-shadow: 2px 2px 5px grey;
+  background-image: linear-gradient(to right, #4CAF50, #59C657);
+}
+
+#rightColumn {
+  /* background-color: #AAD4C9; */
+  background-color: #2A2A2A ;
+  background-image: url("https://www.lboro.ac.uk/media/wwwlboroacuk/external/content/research/sti/slide1.png")
+}
